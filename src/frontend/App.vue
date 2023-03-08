@@ -1,14 +1,14 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <MainLayout msg="Welcome to Your Vue.js App"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import MainLayout from './components/MainLayout.vue';
 
 export default {
 	name: 'App',
 	components: {
-		HelloWorld,
+		MainLayout,
 	},
 };
 </script>
@@ -20,6 +20,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+html, body {
+  background-color: #DDD0C8;
 }
 </style>
