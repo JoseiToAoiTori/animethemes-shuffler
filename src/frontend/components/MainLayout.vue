@@ -1,41 +1,41 @@
 <template>
   <div class="hero is-fullheight">
     <div class="hero-body has-text-centered has-text-grey-dark">
-      <div class="container">
-        <AniListUsername/>
-      </div>
+		<div v-if="!shuffled_themes" class="container">
+			<AniListUsername/>
+		</div>
+		<div v-else>
+			<div class="columns is-centered">
+				<PlayList/>
+				<VideoPlayer :key="index"/>
+			</div>
+		</div>
     </div>
   </div>
 </template>
 
 <script>
 import AniListUsername from './AniListUsername.vue';
+import VideoPlayer from './VideoPlayer.vue';
+import PlayList from './PlayList.vue';
 
 export default {
 	name: 'MainLayout',
 	components: {
 		AniListUsername,
+		VideoPlayer,
+		PlayList,
 	},
 	props: {
 		msg: String,
 	},
+	computed: {
+		shuffled_themes () {
+			return this.$store.state.shuffled_anime;
+		},
+		index () {
+			return this.$store.state.index;
+		},
+	},
 };
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>

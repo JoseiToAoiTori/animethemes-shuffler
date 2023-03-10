@@ -8,14 +8,20 @@ require('@/frontend/assets/main.scss');
 const store = createStore({
 	state () {
 		return {
-			count: 0,
+			shuffled_anime: null,
+			index: 0,
 		};
 	},
 	mutations: {
-
-	},
-	actions: {
-
+		POPULATE_SHUFFLED_ANIME (state, shuffledAnime) {
+			state.shuffled_anime = shuffledAnime;
+		},
+		INCREMENT_INDEX (state) {
+			state.index++;
+		},
+		SET_NEW_INDEX (state, index) {
+			state.index = index;
+		},
 	},
 });
 
