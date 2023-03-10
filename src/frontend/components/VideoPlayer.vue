@@ -1,6 +1,6 @@
 <template>
     <div class="column is-10">
-        <video controls="" autoplay="" name="media" @ended="onEnd()"><source :src="current_video" type="video/webm"></video>
+        <video controls="" autoplay="" name="media" @ended="onEnd()" :volume="current_volume"><source :src="current_video" type="video/webm"></video>
     </div>
 </template>
 
@@ -9,13 +9,23 @@ export default {
 	methods: {
 		onEnd () {
 			this.$store.commit('INCREMENT_INDEX');
-			console.log('it ended');
 		},
 	},
 	computed: {
 		current_video () {
 			return this.$store.state.shuffled_anime[this.$store.state.index].video;
 		},
+		current_volume () {
+			return this.$store.state.volume;
+		},
+	},
+	mounted () {
+		const video = document.querySelector('video');
+
+		video.addEventListener('volumechange', event => {
+			// console.log(event.target.volume);
+			this.$store.commit('CHANGE_VOLUME', event.target.volume);
+		});
 	},
 };
 </script>

@@ -10,6 +10,7 @@ const store = createStore({
 		return {
 			shuffled_anime: null,
 			index: 0,
+			volume: 1,
 		};
 	},
 	mutations: {
@@ -21,6 +22,9 @@ const store = createStore({
 		},
 		SET_NEW_INDEX (state, index) {
 			state.index = index;
+		},
+		CHANGE_VOLUME (state, volume) {
+			state.volume = volume;
 		},
 	},
 });
