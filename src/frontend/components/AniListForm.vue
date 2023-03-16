@@ -9,10 +9,12 @@
 			</div>
 		</div>
 		<p class="has-text-danger">{{ error }}</p>
+		<Filters @change="updateParams"/>
 	</div>
 </template>
 
 <script>
+import Filters from './Filters.vue';
 const superagent = require('superagent');
 import util from '../util';
 
@@ -49,6 +51,9 @@ function shuffle (a) {
 }
 
 export default {
+	components: {
+		Filters,
+	},
 	data () {
 		return {
 			username: '',
@@ -57,6 +62,9 @@ export default {
 		};
 	},
 	methods: {
+		updateParams (newParams) {
+			console.log(newParams.status);
+		},
 		async getAniList () {
 			this.loading = true;
 			let hasNextPage = true;
@@ -78,8 +86,6 @@ export default {
 				return;
 			}
 			const chunkedArr = chunkArray([...new Set(animeArr)], 100);
-			// this.$store.commit('POPULATE_SHUFFLED_ANIME', chunkedArr);
-			// console.log(this.$store.state.shuffled_anime);
 			const themePromises = [];
 			for (const chunk of chunkedArr) {
 				// eslint-disable-next-line no-await-in-loop

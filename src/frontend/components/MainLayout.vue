@@ -2,7 +2,7 @@
   <div class="hero is-fullheight">
     <div class="hero-body has-text-centered has-text-grey-dark">
 		<div v-if="!shuffled_themes" class="container">
-			<AniListUsername/>
+			<AniListForm/>
 		</div>
 		<div v-else>
 			<div class="columns is-centered">
@@ -15,14 +15,14 @@
 </template>
 
 <script>
-import AniListUsername from './AniListUsername.vue';
+import AniListForm from './AniListForm.vue';
 import VideoPlayer from './VideoPlayer.vue';
 import PlayList from './PlayList.vue';
 
 export default {
 	name: 'MainLayout',
 	components: {
-		AniListUsername,
+		AniListForm,
 		VideoPlayer,
 		PlayList,
 	},
