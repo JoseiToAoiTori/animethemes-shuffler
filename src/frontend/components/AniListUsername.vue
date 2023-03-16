@@ -2,7 +2,7 @@
 	<div>
 		<div class="columns">
 			<div class="column is-three-quarters">
-				<input class="input is-primary" type="text" placeholder="Enter Your AniList Username" v-model="username">
+				<input autofocus class="input is-primary" type="text" placeholder="Enter Your AniList Username" v-model="username" v-on:keyup.enter="getAniList">
 			</div>
 			<div class="column is-one-quarter">
 				<button class="button is-responsive is-fullwidth is-primary" :class="{'is-loading': loading}" @click="getAniList">Create Playlist</button>
