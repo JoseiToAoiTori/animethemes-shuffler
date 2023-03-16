@@ -8,7 +8,12 @@
 export default {
 	methods: {
 		onEnd () {
-			this.$store.commit('INCREMENT_INDEX');
+			if (this.$store.state.index + 1 >= this.$store.state.shuffled_anime.length) {
+				this.$store.commit('POPULATE_SHUFFLED_ANIME', null);
+				this.$store.commit('SET_NEW_INDEX', 0);
+			} else {
+				this.$store.commit('INCREMENT_INDEX');
+			}
 		},
 	},
 	computed: {
@@ -23,7 +28,6 @@ export default {
 		const video = document.querySelector('video');
 
 		video.addEventListener('volumechange', event => {
-			// console.log(event.target.volume);
 			this.$store.commit('CHANGE_VOLUME', event.target.volume);
 		});
 	},
