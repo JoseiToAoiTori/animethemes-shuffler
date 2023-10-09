@@ -1,11 +1,9 @@
-deployment:
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: animethemes
 spec:
-  replicas: 1
+  replicas: 3  # Increased replicas for high availability
   selector:
     matchLabels:
       app: animethemes
@@ -19,6 +17,22 @@ spec:
         image: animethemes-shuffler:latest
         ports:
         - containerPort: 80
+        resources:
+          limits:
+            memory: "256Mi"  # Resource limits for memory
+            cpu: "200m"       # Resource limits for CPU
+        readinessProbe:
+          httpGet:
+            path: /healthz  # Added a readiness probe
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /healthz  # Added a liveness probe
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10
       - name: mysql
         image: mysql:5.7
         env:
@@ -31,3 +45,21 @@ spec:
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
+        resources:
+          limits:
+            memory: "512Mi"  # Resource limits for memory
+            cpu: "500m"       # Resource limits for CPU
+        readinessProbe:
+          exec:
+            command: ["mysqladmin", "ping"]  # Readiness probe for MySQL
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        livenessProbe:
+          exec:
+            command: ["mysqladmin", "ping"]  # Liveness probe for MySQL
+          initialDelaySeconds: 60
+          periodSeconds: 20
+  volumes:
+  - name: mysql-persistent-storage
+    persistentVolumeClaim:
+      claimName: mysql-pv-claim  # Added a persistent volume claim
